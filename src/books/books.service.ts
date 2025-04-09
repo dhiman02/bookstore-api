@@ -15,14 +15,30 @@ export class BooksService {
 
   async findAll(query: any): Promise<Book[]> {
     const filter: any = {};
-
+  
     if (query.author) filter.author = query.author;
     if (query.category) filter.category = query.category;
     if (query.rating) filter.rating = { $gte: Number(query.rating) };
     if (query.title) filter.title = { $regex: query.title, $options: 'i' };
-
-    return this.bookModel.find(filter).exec();
-  }
+  
+    const page = parseInt(query.page) || 1;
+    const limit = parseInt(query.limit) || 10;
+    const skip = (page - 1) * limit;
+  
+    let sort = {};
+    if (query.sort) {
+      const sortField = query.sort.startsWith('-') ? query.sort.slice(1) : query.sort;
+      const sortOrder = query.sort.startsWith('-') ? -1 : 1;
+      sort = { [sortField]: sortOrder };
+    }
+  
+    return this.bookModel
+      .find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .exec();
+  } 
 
   async findById(id: string): Promise<Book> {
     const book = await this.bookModel.findById(id).exec();
