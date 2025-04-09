@@ -1,62 +1,62 @@
-Bookstore RESTful API ---
+Bookstore RESTful API ---<br />
 This is a simple RESTful API for a Bookstore Application built with NestJS and MongoDB. It supports user authentication, CRUD operations on books, filtering/search, and input validation.
+<br/>
+Tech Stack ---<br/>
+-Backend Framework: NestJS (Node.js + TypeScript)<br/>
+-Database: MongoDB<br/>
+-Authentication: JWT (JSON Web Tokens)<br/>
+-ORM/ODM: Mongoose<br/>
+<br/>
+Features ---<br/>
 
-Tech Stack ---
--Backend Framework: NestJS (Node.js + TypeScript)
--Database: MongoDB
--Authentication: JWT (JSON Web Tokens)
--ORM/ODM: Mongoose
+1. User Authentication (JWT-based)<br/>
+-`POST /auth/signup` – to register a new user with email & password<br/>
+-`POST /auth/login` – to login with email & password to receive JWT token<br/>
+All book routes are protected and require a valid token.<br/>
 
-Features ---
+2. Book Endpoints (Protected)<br/>
+- `POST /books` – to add a new book  <br/>
+- `GET /books` – to get all books  <br/>
+- `GET /books/:id` – to get book by ID  <br/>
+- `PUT /books/:id` – to update book by ID  <br/>
+- `DELETE /books/:id` – to delete book by ID  <br/>
 
-1. User Authentication (JWT-based)
--`POST /auth/signup` – to register a new user with email & password
--`POST /auth/login` – to login with email & password to receive JWT token
-All book routes are protected and require a valid token.
+3. Filtering and Search<br/>
+- Filter by: `author`, `category`, `rating`<br/>
+- Search by: partial match in `title`<br/>
+- Example:  <br/>
+  `GET /books?author=Rowling&rating=4.5&title=magic`<br/>
+<br/>
+Sample Request – Add Book (POST /books) ---<br/>
+Headers: Authorization: Bearer <your_jwt_token> Content-Type: application/json<br/>
+Body: { "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "category": "Classic", "price": 10.99, "rating": 4.7, "publishedDate": "1925-04-10" }<br/>
+<br/>
+Setup Instructions --- <br/>
 
-2. Book Endpoints (Protected)
-- `POST /books` – to add a new book  
-- `GET /books` – to get all books  
-- `GET /books/:id` – to get book by ID  
-- `PUT /books/:id` – to update book by ID  
-- `DELETE /books/:id` – to delete book by ID  
+1. Clone the repository:<br/>
 
-3. Filtering and Search
-- Filter by: `author`, `category`, `rating`
-- Search by: partial match in `title`
-- Example:  
-  `GET /books?author=Rowling&rating=4.5&title=magic`
+(In Git bash)<br/>
+git clone https://github.com/dhiman02/bookstore-api.git<br/>
+cd bookstore-api<br/>
 
-Sample Request – Add Book (POST /books) ---
-Headers: Authorization: Bearer <your_jwt_token> Content-Type: application/json
-Body: { "title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "category": "Classic", "price": 10.99, "rating": 4.7, "publishedDate": "1925-04-10" }
+2. Install dependencies:<br/>
 
-Setup Instructions --- 
+(In Git bash)<br/>
+npm install<br/>
 
-1. Clone the repository:
+3. Configure MongoDB connection:<br/>
 
-(In Git bash)
-git clone https://github.com/dhiman02/bookstore-api.git
-cd bookstore-api
+Update your .env file with your MongoDB URI:<br/>
+MONGODB_URI=mongodb://localhost:27017/bookstore<br/>
+JWT_SECRET=your_jwt_secret<br/>
 
-2. Install dependencies:
+4. Run the app:<br/>
 
-(In Git bash)
-npm install
+(In Git bash)<br/>
+npm run start:dev<br/>
+<br/>
+Author---<br/>
 
-3. Configure MongoDB connection:
-
-Update your .env file with your MongoDB URI:
-MONGODB_URI=mongodb://localhost:27017/bookstore
-JWT_SECRET=your_jwt_secret
-
-4. Run the app:
-
-(In Git bash)
-npm run start:dev
-
-Author---
-
-Namrata Dhiman
-Backend Developer Assignment for Zynetic(April 2025)
+Namrata Dhiman<br/>
+Backend Developer Assignment for Zynetic(April 2025)<br/>
 
